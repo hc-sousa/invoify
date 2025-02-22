@@ -4,17 +4,23 @@
 import {
     CurrencySelector,
     DatePickerFormField,
+    DocumentTypeSelector,
     FormInput,
     FormFile,
+    FormSwitch,
     Subheading,
     TemplateSelector,
 } from "@/app/components";
 
 // Contexts
 import { useTranslationContext } from "@/contexts/TranslationContext";
+import { useFormContext } from "react-hook-form";
 
 const InvoiceDetails = () => {
     const { _t } = useTranslationContext();
+    const { watch } = useFormContext();
+    const documentType = watch("details.documentType");
+    const showPaymentFields = documentType === "receipt" || documentType === "invoice_receipt";
 
     return (
         <section className="flex flex-col flex-wrap gap-5">
@@ -22,6 +28,12 @@ const InvoiceDetails = () => {
 
             <div className="flex flex-row flex-wrap gap-5">
                 <div className="flex flex-col gap-2">
+                    <DocumentTypeSelector
+                        name="details.documentType"
+                        label={_t("form.documentTypes.heading")}
+                        placeholder={_t("form.placeholders.selectDocumentType")}
+                    />
+
                     <FormFile
                         name="details.invoiceLogo"
                         label={_t(
@@ -35,7 +47,7 @@ const InvoiceDetails = () => {
                     <FormInput
                         name="details.invoiceNumber"
                         label={_t("form.steps.invoiceDetails.invoiceNumber")}
-                        placeholder="Invoice number"
+                        placeholder={_t("form.placeholders.documentNumber")}
                     />
 
                     <DatePickerFormField
@@ -48,10 +60,23 @@ const InvoiceDetails = () => {
                         label={_t("form.steps.invoiceDetails.dueDate")}
                     />
 
+                    {showPaymentFields && (
+                        <>
+                            <DatePickerFormField
+                                name="details.paymentDate"
+                                label={_t("form.steps.invoiceDetails.paymentDate")}
+                            />
+                            <FormSwitch
+                                name="details.isPaid"
+                                label={_t("form.steps.invoiceDetails.isPaid")}
+                            />
+                        </>
+                    )}
+
                     <CurrencySelector
                         name="details.currency"
                         label={_t("form.steps.invoiceDetails.currency")}
-                        placeholder="Select Currency"
+                        placeholder={_t("form.placeholders.selectCurrency")}
                     />
                 </div>
 

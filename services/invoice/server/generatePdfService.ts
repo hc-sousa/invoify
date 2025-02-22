@@ -7,7 +7,7 @@ import chromium from "@sparticuz/chromium";
 import { getInvoiceTemplate } from "@/lib/helpers";
 
 // Variables
-import { CHROMIUM_EXECUTABLE_PATH, ENV, TAILWIND_CDN } from "@/lib/variables";
+import { CHROMIUM_EXECUTABLE_PATH, TAILWIND_CDN } from "@/lib/variables";
 
 // Types
 import { InvoiceType } from "@/types";
@@ -38,23 +38,21 @@ export async function generatePdfService(req: NextRequest) {
             InvoiceTemplate(body)
         );
 
-        // Launch the browser in production or development mode depending on the environment
-        if (ENV === "production") {
-            const puppeteer = await import("puppeteer-core");
-            browser = await puppeteer.launch({
-                args: chromium.args,
-                defaultViewport: chromium.defaultViewport,
-                executablePath: await chromium.executablePath(
-                    CHROMIUM_EXECUTABLE_PATH
-                ),
-                headless: true,
-                ignoreHTTPSErrors: true,
-            });
-        } else if (ENV === "development") {
+        if (process.env.NODE_ENV === 'development') {
+            // Use regular Puppeteer in development
             const puppeteer = await import("puppeteer");
             browser = await puppeteer.launch({
-                args: ["--no-sandbox", "--disable-setuid-sandbox"],
-                headless: "new",
+                headless: true,
+                args: ['--no-sandbox']
+            });
+        } else {
+            // Use puppeteer-core in production
+            const puppeteer = await import("puppeteer-core");
+            browser = await puppeteer.launch({
+                args: [...chromium.args, "--no-sandbox"],
+                defaultViewport: chromium.defaultViewport,
+                executablePath: await chromium.executablePath(CHROMIUM_EXECUTABLE_PATH),
+                headless: true
             });
         }
 
@@ -63,58 +61,49 @@ export async function generatePdfService(req: NextRequest) {
         }
 
         const page = await browser.newPage();
-        console.log("Page opened"); // Debugging log
 
         // Set the HTML content of the page
-        await page.setContent(await htmlTemplate, {
-            // * "waitUntil" prop makes fonts work in templates
+        await page.setContent(htmlTemplate, {
             waitUntil: "networkidle0",
         });
-        console.log("Page content set"); // Debugging log
 
         // Add Tailwind CSS
         await page.addStyleTag({
             url: TAILWIND_CDN,
         });
-        console.log("Style tag added"); // Debugging log
 
         // Generate the PDF
-        const pdf: Buffer = await page.pdf({
+        const pdfBuffer = await page.pdf({
             format: "a4",
             printBackground: true,
+            margin: { top: "1cm", right: "1cm", bottom: "1cm", left: "1cm" }
         });
-        console.log("PDF generated"); // Debugging log
 
-        for (const page of await browser.pages()) {
-            await page.close();
-        }
-
-        // Close the Puppeteer browser
+        // Close the browser
         await browser.close();
-        console.log("Browser closed"); // Debugging log
 
         // Create a Blob from the PDF data
-        const pdfBlob = new Blob([pdf], { type: "application/pdf" });
+        const pdfBlob = new Blob([pdfBuffer], { type: "application/pdf" });
 
-        const response = new NextResponse(pdfBlob, {
+        return new NextResponse(pdfBlob, {
             headers: {
                 "Content-Type": "application/pdf",
                 "Content-Disposition": "inline; filename=invoice.pdf",
             },
             status: 200,
         });
-
-        return response;
     } catch (error) {
-        console.error(error);
-
-        // Return an error response
-        return new NextResponse(`Error generating PDF: \n${error}`, {
+        console.error("PDF Generation Error:", error);
+        return new NextResponse(`Error generating PDF: ${error}`, {
             status: 500,
         });
     } finally {
         if (browser) {
-            await Promise.race([browser.close(), browser.close(), browser.close()]);
+            try {
+                await browser.close();
+            } catch (e) {
+                console.error("Error closing browser:", e);
+            }
         }
     }
 }

@@ -4,7 +4,7 @@ import { z } from "zod";
 import { formatNumberWithCommas } from "@/lib/helpers";
 
 // Variables
-import { DATE_OPTIONS } from "@/lib/variables";
+import { DATE_OPTIONS, DOCUMENT_TYPES } from "@/lib/variables";
 
 // TODO: Refactor some of the validators. Ex: name and zipCode or address and country have same rules
 // Field Validators
@@ -119,6 +119,8 @@ const PaymentInformationSchema = z.object({
     bankName: fieldValidators.stringMin1,
     accountName: fieldValidators.stringMin1,
     accountNumber: fieldValidators.stringMin1,
+    paymentMethod: fieldValidators.stringOptional,
+    paymentReference: fieldValidators.stringOptional,
 });
 
 const DiscountDetailsSchema = z.object({
@@ -143,10 +145,13 @@ const SignatureSchema = z.object({
 });
 
 const InvoiceDetailsSchema = z.object({
+    documentType: z.enum([DOCUMENT_TYPES[0].code, DOCUMENT_TYPES[1].code, DOCUMENT_TYPES[2].code]),
     invoiceLogo: fieldValidators.stringOptional,
     invoiceNumber: fieldValidators.stringMin1,
     invoiceDate: fieldValidators.date,
     dueDate: fieldValidators.date,
+    paymentDate: fieldValidators.date.optional(),
+    isPaid: z.boolean().optional(),
     purchaseOrderNumber: fieldValidators.stringOptional,
     currency: fieldValidators.string,
     language: fieldValidators.string,

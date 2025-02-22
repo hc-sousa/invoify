@@ -54,13 +54,8 @@ export const NODEMAILER_PW = process.env.NODEMAILER_PW;
  */
 export const LOCALES = [
     { code: "en", name: "English" },
-    { code: "de", name: "Deutsch" },
-    { code: "it", name: "Italiano" },
-    { code: "es", name: "Español" },
-    { code: "fr", name: "Français" },
-    { code: "ar", name: "العربية" },
-    { code: "pt-BR", name: "Português (Brasil)" },
-]
+    { code: "pt-PT", name: "Português (Portugal)" },
+] as const;
 export const DEFAULT_LOCALE = LOCALES[0].code;
 
 /**
@@ -108,6 +103,17 @@ export const SHORT_DATE_OPTIONS: Intl.DateTimeFormatOptions = {
 };
 
 /**
+ * Document Types
+ */
+export const DOCUMENT_TYPES = [
+    { code: "invoice", name: "Invoice" },
+    { code: "receipt", name: "Receipt" },
+    { code: "invoice_receipt", name: "Invoice-Receipt" },
+] as const;
+
+export const DEFAULT_DOCUMENT_TYPE = DOCUMENT_TYPES[0].code;
+
+/**
  * Form defaults
  */
 export const FORM_DEFAULT_VALUES = {
@@ -132,10 +138,13 @@ export const FORM_DEFAULT_VALUES = {
         customInputs: [],
     },
     details: {
+        documentType: DEFAULT_DOCUMENT_TYPE,
         invoiceLogo: "",
         invoiceNumber: "",
         invoiceDate: "",
         dueDate: "",
+        paymentDate: "",
+        isPaid: false,
         items: [
             {
                 name: "",
@@ -164,6 +173,8 @@ export const FORM_DEFAULT_VALUES = {
             bankName: "",
             accountName: "",
             accountNumber: "",
+            paymentMethod: "",
+            paymentReference: "",
         },
         additionalNotes: "",
         paymentTerms: "",

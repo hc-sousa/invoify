@@ -56,3 +56,9 @@ export enum ExportTypes {
     XLSX = "XLSX",
     DOCX = "DOCX",
 }
+
+export interface DocumentTypeSelectorProps {
+    name: string;
+    label: string;
+    placeholder?: string;
+}

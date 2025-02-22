@@ -1,0 +1,114 @@
+{
+    "form": {
+        "title": "Fatura",
+        "description": "Gerar Fatura",
+        "newInvBadge": "Nova Fatura",
+        "documentTypes": {
+            "heading": "Tipo de Documento",
+            "invoice": "Fatura",
+            "receipt": "Recibo",
+            "invoice_receipt": "Fatura-Recibo"
+        },
+        "placeholders": {
+            "selectDocumentType": "Selecionar tipo de documento",
+            "documentNumber": "Número do documento",
+            "selectCurrency": "Selecionar moeda"
+        },
+        "wizard": {
+            "fromAndTo": "De & Para",
+            "invoiceDetails": "Detalhes",
+            "lineItems": "Itens",
+            "paymentInfo": "Pagamento",
+            "summary": "Resumo",
+            "next": "Seguinte",
+            "back": "Voltar"
+        },
+        "steps": {
+            "fromAndTo": {
+                "billFrom": "Emitido Por",
+                "billTo": "Faturado Para",
+                "name": "Nome",
+                "namePlaceholder": "O seu nome",
+                "address": "Morada",
+                "addressPlaceholder": "A sua morada",
+                "zipCode": "Cód. Postal",
+                "zipCodePlaceholder": "O seu código postal",
+                "city": "Cidade",
+                "cityPlaceholder": "A sua cidade",
+                "country": "País",
+                "countryPlaceholder": "O seu país",
+                "email": "Email",
+                "emailPlaceholder": "O seu email",
+                "phone": "Telefone",
+                "phonePlaceholder": "O seu telefone",
+                "addCustomInput": "Adicionar Campo Personalizado",
+                "sender": "Remetente",
+                "receiver": "Destinatário"
+            },
+            "invoiceDetails": {
+                "heading": "Detalhes do Documento",
+                "invoiceLogo": {
+                    "label": "Logótipo",
+                    "placeholder": "Clique para carregar a imagem"
+                },
+                "invoiceNumber": "Número do Documento",
+                "issuedDate": "Data de Emissão",
+                "dueDate": "Data de Vencimento",
+                "paymentDate": "Data de Pagamento",
+                "isPaid": "Pago",
+                "currency": "Moeda"
+            },
+            "lineItems": {
+                "heading": "Itens",
+                "item": "Item",
+                "name": "Nome",
+                "quantity": "Quantidade",
+                "rate": "Taxa",
+                "total": "Total",
+                "description": "Descrição",
+                "addNewItem": "Adicionar um novo item",
+                "removeItem": "Remover item"
+            },
+            "paymentInfo": {
+                "heading": "Informações de Pagamento",
+                "bankName": "Nome do Banco",
+                "accountName": "Nome da Conta",
+                "accountNumber": "Número da Conta",
+                "paymentMethod": "Método de Pagamento",
+                "paymentReference": "Referência de Pagamento"
+            },
+            "summary": {
+                "heading": "Resumo",
+                "signature": {
+                    "heading": "Assinatura",
+                    "placeholder": "Clique para adicionar assinatura",
+                    "draw": "Desenhar",
+                    "type": "Digitar",
+                    "upload": "Carregar"
+                },
+                "additionalNotes": "Notas Adicionais",
+                "paymentTerms": "Condições de Pagamento",
+                "discount": "Desconto",
+                "tax": "Imposto",
+                "shipping": "Portes",
+                "subTotal": "Subtotal",
+                "totalAmount": "Valor Total",
+                "includeTotalInWords": "Incluir Total por Extenso?",
+                "yes": "Sim",
+                "no": "Não"
+            }
+        }
+    },
+    "actions": {
+        "title": "Ações",
+        "description": "Operações e visualização",
+        "loadInvoice": "Carregar Documento",
+        "exportInvoice": "Exportar Documento",
+        "newInvoice": "Novo Documento",
+        "generatePdf": "Gerar PDF",
+        "pdfView": "Visualização em PDF"
+    },
+    "footer": {
+        "developedBy": "Desenvolvido por"
+    }
+} 

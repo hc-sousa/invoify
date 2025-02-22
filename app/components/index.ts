@@ -48,6 +48,8 @@ import DatePickerFormField from "./reusables/form-fields/DatePickerFormField";
 import FormFile from "./reusables/form-fields/FormFile";
 import ChargeInput from "./reusables/form-fields/ChargeInput";
 import FormCustomInput from "./reusables/form-fields/FormCustomInput";
+import DocumentTypeSelector from "./reusables/form-fields/DocumentTypeSelector";
+import FormSwitch from "./reusables/form-fields/FormSwitch";
 
 import BaseButton from "./reusables/BaseButton";
 import ThemeSwitcher from "./reusables/ThemeSwitcher";
@@ -92,11 +94,6 @@ import InvoiceTemplate2 from "./templates/invoice-pdf/InvoiceTemplate2";
 
 // Email templates
 import SendPdfEmail from "./templates/email/SendPdfEmail";
-
-/* =========================
-   ? DEV ONLY
-   ========================= */
-import DevDebug from "./dev/DevDebug";
 
 export {
     BaseNavbar,
@@ -147,5 +144,6 @@ export {
     InvoiceTemplate1,
     InvoiceTemplate2,
     SendPdfEmail,
-    DevDebug,
+    DocumentTypeSelector,
+    FormSwitch,
 };

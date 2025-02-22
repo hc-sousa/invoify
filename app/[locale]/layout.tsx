@@ -17,7 +17,8 @@ import Favicon from "@/public/assets/favicon/favicon.ico";
 import { Analytics } from "@vercel/analytics/react";
 
 // Next Intl
-import { NextIntlClientProvider } from "next-intl";
+import { unstable_setRequestLocale } from 'next-intl/server';
+import { getMessages } from 'next-intl/server';
 
 // ShadCn
 import { Toaster } from "@/components/ui/toaster";
@@ -32,7 +33,10 @@ import Providers from "@/contexts/Providers";
 import { JSONLD, ROOTKEYWORDS } from "@/lib/seo";
 
 // Variables
-import { BASE_URL, GOOGLE_SC_VERIFICATION, LOCALES } from "@/lib/variables";
+import { BASE_URL, GOOGLE_SC_VERIFICATION } from "@/lib/variables";
+
+// Types
+import { Locale } from "@/i18n.config";
 
 export const metadata: Metadata = {
     title: "Invoify | Free Invoice Generator",
@@ -57,24 +61,16 @@ export const metadata: Metadata = {
     },
 };
 
-export function generateStaticParams() {
-    const locales = LOCALES.map((locale) => locale.code);
-    return locales;
-}
-
 export default async function LocaleLayout({
     children,
     params: { locale },
 }: {
     children: React.ReactNode;
-    params: { locale: string };
+    params: { locale: Locale };
 }) {
-    let messages;
-    try {
-        messages = (await import(`@/i18n/locales/${locale}.json`)).default;
-    } catch (error) {
-        notFound();
-    }
+    unstable_setRequestLocale(locale);
+
+    const messages = await getMessages();
 
     return (
         <html lang={locale}>
@@ -88,21 +84,19 @@ export default async function LocaleLayout({
             <body
                 className={`${outfit.className} ${dancingScript.variable} ${parisienne.variable} ${greatVibes.variable} ${alexBrush.variable} antialiased bg-slate-100 dark:bg-slate-800`}
             >
-                <NextIntlClientProvider locale={locale} messages={messages}>
-                    <Providers>
-                        <BaseNavbar />
+                <Providers locale={locale} messages={messages}>
+                    <BaseNavbar />
 
-                        <div className="flex flex-col">{children}</div>
+                    <div className="flex flex-col">{children}</div>
 
-                        <BaseFooter />
+                    <BaseFooter />
 
-                        {/* Toast component */}
-                        <Toaster />
+                    {/* Toast component */}
+                    <Toaster />
 
-                        {/* Vercel analytics */}
-                        <Analytics />
-                    </Providers>
-                </NextIntlClientProvider>
+                    {/* Vercel analytics */}
+                    <Analytics />
+                </Providers>
             </body>
         </html>
     );

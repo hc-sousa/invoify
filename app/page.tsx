@@ -1,6 +1,8 @@
 import { redirect } from "next/navigation";
+import { DEFAULT_LOCALE } from "@/lib/variables";
 
-// This page only renders when the app is built statically (output: 'export')
+// This page redirects to the default locale
 export default function RootPage() {
-    redirect("/en");
+    // Always redirect to the default locale
+    redirect(`/${DEFAULT_LOCALE}/`);
 }
