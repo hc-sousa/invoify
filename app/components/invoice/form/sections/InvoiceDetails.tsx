@@ -10,6 +10,7 @@ import {
     FormSwitch,
     Subheading,
     TemplateSelector,
+    LanguageSelector,
 } from "@/app/components";
 
 // Contexts
@@ -77,6 +78,12 @@ const InvoiceDetails = () => {
                         name="details.currency"
                         label={_t("form.steps.invoiceDetails.currency")}
                         placeholder={_t("form.placeholders.selectCurrency")}
+                    />
+
+                    <LanguageSelector
+                        name="details.language"
+                        label={_t("form.steps.invoiceDetails.language")}
+                        placeholder={_t("form.placeholders.selectLanguage")}
                     />
                 </div>
 

@@ -9,6 +9,12 @@
             "receipt": "Receipt",
             "invoice_receipt": "Invoice-Receipt"
         },
+        "placeholders": {
+            "selectDocumentType": "Select document type",
+            "documentNumber": "Document number",
+            "selectCurrency": "Select currency",
+            "selectLanguage": "Select document language"
+        },
         "wizard": {
             "fromAndTo": "From & To",
             "invoiceDetails": "Document Details",
@@ -51,7 +57,8 @@
                 "dueDate": "Due Date",
                 "paymentDate": "Payment Date",
                 "isPaid": "Paid",
-                "currency": "Currency"
+                "currency": "Currency",
+                "language": "Document Language"
             },
             "lineItems": {
                 "heading": "Items",

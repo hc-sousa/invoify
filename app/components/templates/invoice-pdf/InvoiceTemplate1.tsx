@@ -33,7 +33,9 @@ const InvoiceTemplate = (data: InvoiceType) => {
                 </div>
                 <div className="text-right">
                     <h2 className="text-2xl md:text-3xl font-semibold text-gray-800">
-                        Invoice #
+                        {details.documentType === "invoice" && "Invoice"}
+                        {details.documentType === "receipt" && "Receipt"}
+                        {details.documentType === "invoice_receipt" && "Invoice-Receipt"} #
                     </h2>
                     <span className="mt-1 block text-gray-500">
                         {details.invoiceNumber}
@@ -226,80 +228,33 @@ const InvoiceTemplate = (data: InvoiceType) => {
             </div>
 
             <div>
-                <div className="my-4">
-                    <div className="my-2">
-                        <p className="font-semibold text-blue-600">
-                            Additional notes:
-                        </p>
-                        <p className="font-regular text-gray-800">
-                            {details.additionalNotes}
+                {/* Signature */}
+                {details?.signature?.data && isDataUrl(details?.signature?.data) ? (
+                    <div className="mt-6">
+                        <p className="font-semibold text-gray-800">Signature:</p>
+                        <img
+                            src={details.signature.data}
+                            width={120}
+                            height={60}
+                            alt={`Signature of ${sender.name}`}
+                        />
+                    </div>
+                ) : details.signature?.data ? (
+                    <div className="mt-6">
+                        <p className="text-gray-800">Signature:</p>
+                        <p
+                            style={{
+                                fontSize: 30,
+                                fontWeight: 400,
+                                fontFamily: `${details.signature.fontFamily}, cursive`,
+                                color: "black",
+                            }}
+                        >
+                            {details.signature.data}
                         </p>
                     </div>
-                    <div className="my-2">
-                        <p className="font-semibold text-blue-600">
-                            Payment terms:
-                        </p>
-                        <p className="font-regular text-gray-800">
-                            {details.paymentTerms}
-                        </p>
-                    </div>
-                    <div className="my-2">
-                        <span className="font-semibold text-md text-gray-800">
-                            Please send the payment to this address
-                            <p className="text-sm">
-                                Bank: {details.paymentInformation?.bankName}
-                            </p>
-                            <p className="text-sm">
-                                Account name:{" "}
-                                {details.paymentInformation?.accountName}
-                            </p>
-                            <p className="text-sm">
-                                Account no:{" "}
-                                {details.paymentInformation?.accountNumber}
-                            </p>
-                        </span>
-                    </div>
-                </div>
-                <p className="text-gray-500 text-sm">
-                    If you have any questions concerning this invoice, use the
-                    following contact information:
-                </p>
-                <div>
-                    <p className="block text-sm font-medium text-gray-800">
-                        {sender.email}
-                    </p>
-                    <p className="block text-sm font-medium text-gray-800">
-                        {sender.phone}
-                    </p>
-                </div>
+                ) : null}
             </div>
-
-            {/* Signature */}
-            {details?.signature?.data && isDataUrl(details?.signature?.data) ? (
-                <div className="mt-6">
-                    <p className="font-semibold text-gray-800">Signature:</p>
-                    <img
-                        src={details.signature.data}
-                        width={120}
-                        height={60}
-                        alt={`Signature of ${sender.name}`}
-                    />
-                </div>
-            ) : details.signature?.data ? (
-                <div className="mt-6">
-                    <p className="text-gray-800">Signature:</p>
-                    <p
-                        style={{
-                            fontSize: 30,
-                            fontWeight: 400,
-                            fontFamily: `${details.signature.fontFamily}, cursive`,
-                            color: "black",
-                        }}
-                    >
-                        {details.signature.data}
-                    </p>
-                </div>
-            ) : null}
         </InvoiceLayout>
     );
 };

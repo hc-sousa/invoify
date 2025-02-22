@@ -28,7 +28,7 @@ const LanguageSelector = () => {
     const currentLocale = usePathname().split('/')[1] as Locale;
 
     const handleLanguageChange = (lang: Locale) => {
-        router.push(pathname, { locale: lang });
+        router.replace(pathname, { locale: lang });
     };
 
     return (
@@ -37,7 +37,7 @@ const LanguageSelector = () => {
             onValueChange={handleLanguageChange}
         >
             <SelectTrigger
-                className="w-[10rem] relative"
+                className="w-[8rem] relative"
                 aria-label="Languages"
             >
                 <Badge className="position: absolute -top-4 -left-2 font-normal">
@@ -45,17 +45,11 @@ const LanguageSelector = () => {
                 </Badge>
                 <SelectValue placeholder="Select a language" />
             </SelectTrigger>
-            <SelectContent
-                style={{
-                    overflowY: "hidden",
-                    height: "min-content",
-                }}
-            >
+            <SelectContent>
                 <SelectGroup>
                     <SelectLabel>Languages</SelectLabel>
-
                     {LOCALES.map((locale) => (
-                        <SelectItem key={locale.code} value={locale.code as Locale}>
+                        <SelectItem key={locale.code} value={locale.code}>
                             {locale.name}
                         </SelectItem>
                     ))}

@@ -51,7 +51,8 @@
                 "dueDate": "Data de Vencimento",
                 "paymentDate": "Data de Pagamento",
                 "isPaid": "Pago",
-                "currency": "Moeda"
+                "currency": "Moeda",
+                "language": "Idioma"
             },
             "lineItems": {
                 "heading": "Itens",
@@ -105,5 +106,11 @@
     },
     "footer": {
         "developedBy": "Desenvolvido por"
+    },
+    "placeholders": {
+        "selectDocumentType": "Selecionar tipo de documento",
+        "documentNumber": "Número do documento",
+        "selectCurrency": "Selecionar moeda",
+        "selectLanguage": "Selecionar idioma do documento"
     }
 } 

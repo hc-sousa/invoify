@@ -11,7 +11,7 @@ import Logo from "@/public/assets/img/invoify-logo.svg";
 import { Card } from "@/components/ui/card";
 
 // Components
-import { LanguageSelector, ThemeSwitcher } from "@/app/components";
+import { NavLanguageSelector, ThemeSwitcher } from "@/app/components";
 
 const BaseNavbar = () => {
     return (
@@ -27,7 +27,7 @@ const BaseNavbar = () => {
                             loading="eager"
                         />
                     </Link>
-                    <LanguageSelector />
+                    <NavLanguageSelector />
                     <ThemeSwitcher />
                 </Card>
             </nav>

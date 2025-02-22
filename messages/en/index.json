@@ -51,7 +51,8 @@
                 "dueDate": "Due Date",
                 "paymentDate": "Payment Date",
                 "isPaid": "Paid",
-                "currency": "Currency"
+                "currency": "Currency",
+                "language": "Language"
             },
             "lineItems": {
                 "heading": "Items",
@@ -105,5 +106,11 @@
     },
     "footer": {
         "developedBy": "Developed by"
+    },
+    "placeholders": {
+        "selectDocumentType": "Select document type",
+        "documentNumber": "Document number",
+        "selectCurrency": "Select currency",
+        "selectLanguage": "Select document language"
     }
 }

@@ -12,7 +12,8 @@
         "placeholders": {
             "selectDocumentType": "Selecionar tipo de documento",
             "documentNumber": "Número do documento",
-            "selectCurrency": "Selecionar moeda"
+            "selectCurrency": "Selecionar moeda",
+            "selectLanguage": "Selecionar idioma do documento"
         },
         "wizard": {
             "fromAndTo": "De & Para",
@@ -56,7 +57,8 @@
                 "dueDate": "Data de Vencimento",
                 "paymentDate": "Data de Pagamento",
                 "isPaid": "Pago",
-                "currency": "Moeda"
+                "currency": "Moeda",
+                "language": "Idioma do Documento"
             },
             "lineItems": {
                 "heading": "Itens",
